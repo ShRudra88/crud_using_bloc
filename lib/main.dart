@@ -1,24 +1,26 @@
+import 'package:crud_using_bloc/bloc/counter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/note_bloc.dart';
-import 'bloc/note_event.dart';
-import 'data/database_helper.dart';
-import 'screens/home_screen.dart';
+
+import 'bloc/home_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => NoteBloc(DatabaseHelper())..add(LoadNotes()),
+    return MultiBlocProvider(
+      providers: [
+       // BlocProvider(create: (_) => CounterCubit()),
+        BlocProvider(create: (_) => CounterBloc()),
+      ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter BLoC CRUD',
-        home: const HomeScreen(),
+        title: 'Flutter Bloc Tutorial',
+        home: HomePage(title : "Flutter demo home page"),
       ),
     );
   }
